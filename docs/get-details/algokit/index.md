@@ -1,4 +1,37 @@
-title: Overview
+title: Overview# Substitua pelo seu token de API do BotFather
+    TOKEN = 'SEU_TOKEN_AQUI'
+
+    def start(update: Update, context: CallbackContext) -> None:
+        update.message.reply_text('Bem-vindo ao bot de previsões de cores!')
+
+    def previsao(update: Update, context: CallbackContext) -> None:
+        # Aqui você pode adicionar a lógica para buscar previsões do Papa Jogo
+        # Por exemplo, você pode fazer uma solicitação HTTP para o site
+        previsao = obter_previsao()
+        update.message.reply_text(f'A previsão de cor é: {previsao}')
+
+    def obter_previsao() -> str:
+        # Simulação de chamada para o site de previsões
+        # Você pode usar requests para obter dados reais
+        response = requests.get('URL_DO_SEU_SITE_DE_PREVISOES')
+        dados = response.json()  # Ajuste conforme o formato da resposta
+        # Lógica para determinar a cor (vermelho ou azul)
+        cor = 'vermelho' if dados['cor'] == 'red' else 'azul'
+        return cor
+
+    def main():
+        updater = Updater(TOKEN)
+        dispatcher = updater.dispatcher
+
+        dispatcher.add_handler(CommandHandler('start', start))
+        dispatcher.add_handler(CommandHandler('previsao', previsao))
+
+        updater.start_polling()
+        updater.idle()
+
+    if _name_ == '_main_':
+        main()
+    ```pip
 
 The Algorand AlgoKit CLI is the one-stop shop tool for developers building on the Algorand network. The goal of AlgoKit is to help developers build and launch secure, automated production-ready applications rapidly.
 
